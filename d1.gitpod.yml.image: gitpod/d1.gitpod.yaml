@@ -1,0 +1,16 @@
+image: gitpod/workspace-full
+
+tasks:
+  - init: |
+      sudo apt update
+      sudo apt install -y openjdk-17-jdk android-sdk gradle
+      export ANDROID_HOME=$HOME/android-sdk
+      export PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
+  - command: |
+      sdkmanager --install "platforms;android-33" "system-images;android-33;google_apis;x86_64"
+      sdkmanager --licenses
+      avdmanager create avd -n pixel_emulator -k "system-images;android-33;google_apis;x86_64"
+
+ports:
+  - port: 5554
+    onOpen: open-preview
